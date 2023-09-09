@@ -1,0 +1,2 @@
+module RemindersController::RemindersHelper
+end

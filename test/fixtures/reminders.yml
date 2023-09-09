@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rem_init_date: MyString
+  rem_description: MyString
+  rem_active: MyString
+
+two:
+  rem_init_date: MyString
+  rem_description: MyString
+  rem_active: MyString
