@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  rem_init_date: MyString
-  rem_description: MyString
-  rem_active: MyString
-
-two:
-  rem_init_date: MyString
-  rem_description: MyString
-  rem_active: MyString
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+# column: value
