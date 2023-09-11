@@ -5,11 +5,21 @@ class RemindersController::RemindersController < ApplicationController
 
     ##get
     def getReminders
-        reminder = Reminder.all
+        reminder = Reminder.all        
         if reminder
             render json: reminder, status: :ok
         else
-            render json: { msg: "user Empty" }, status: :unprocessable_entity
+            render json: {msg: "Reminder Empty" }, status: :unprocessable_entity
+        end
+    end
+
+    #get count of reminders in db
+    def getRemindersCount
+        reminder = Reminder.count()        
+        if reminder
+            render json: reminder, status: :ok
+        else
+            render json: {msg: "Reminder Empty" }, status: :unprocessable_entity
         end
     end
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'show_reminder', action: :showReminder, controller: :reminders
     put 'update_reminder', action: :updateReminder, controller: :reminders
     delete 'delete_reminder', action: :deleteReminder, controller: :reminders
+    get 'get_reminders_count', action: :getRemindersCount, controller: :reminders
   end
 
   # Defines the root path route ("/")
