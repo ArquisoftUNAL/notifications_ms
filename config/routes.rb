@@ -9,8 +9,11 @@ Rails.application.routes.draw do
 
   #go to folder reminders_ms_controllers
   namespace :reminders_controller do
-    get 'get_reminder', action: :getReminder, controller: :reminders
+    get 'get_reminders', action: :getReminders, controller: :reminders
     post 'add_reminder', action: :addReminder, controller: :reminders
+    get 'show_reminder', action: :showReminder, controller: :reminders
+    put 'update_reminder', action: :updateReminder, controller: :reminders
+    delete 'delete_reminder', action: :deleteReminder, controller: :reminders
   end
 
   # Defines the root path route ("/")
