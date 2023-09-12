@@ -16,7 +16,7 @@ services:
     image: mongo:latest
     container_name: habitus_reminders_db
     ports:
-      - "27017:27017"
+      - "3000:3000"
     networks:
       - my-network
 
