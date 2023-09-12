@@ -7,8 +7,6 @@ services:
     container_name: habitus_reminders_ms
     ports:
       - "3000:3000"
-    networks:
-      - my-network
     depends_on:
       - mongodb
 
@@ -17,8 +15,3 @@ services:
     container_name: habitus_reminders_db
     ports:
       - "27017:27017"
-    networks:
-      - my-network
-
-networks:
-  my-network:
