@@ -1,0 +1,6 @@
+check_reminders:
+    cron: "*/1 * * * *" # every minute
+    class: "CheckRemindersWorker"
+    queue: default
+    description: "Check reminders every minute"
+    output: log/check_reminders.log

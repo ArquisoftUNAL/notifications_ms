@@ -5,6 +5,8 @@ services:
       context: ./
       dockerfile: Dockerfile
     container_name: habitus_reminders_ms
+    env_file:
+      - .env
     ports:
       - "3000:3000"
     depends_on:
@@ -14,13 +16,10 @@ services:
     image: mongo:latest
     container_name: habitus_reminders_db
     ports:
-<<<<<<< HEAD
-      - "3000:3000"
-    networks:
-      - my-network
-
-networks:
-  my-network:
-=======
       - "27017:27017"
->>>>>>> 6556941e0bb865fc4a1d2a9d12ae9e344e0d87b3
+
+  redis:
+    image: redis:latest
+    container_name: habitus_reminders_redis
+    ports:
+      - "6379:6379"
