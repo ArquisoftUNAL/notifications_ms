@@ -4,12 +4,12 @@ development:
     # Defines the default client. (required)
     default:
       # Mongoid can connect to a URI accepted by the driver:
-      # uri: mongodb://user:password@mongodb.domain.com:27017/reminders_ms_development
+      # uri: mongodb://user:password@mongodb.domain.com:27017/notifications_ms_development
 
       # Otherwise define the parameters separately.
       # This defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: reminders_ms
+      database: notifications_ms
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -176,7 +176,7 @@ development:
 test:
   clients:
     default:
-      database: reminders_ms_test
+      database: notifications_ms_test
       hosts:
         - host.docker.internal:27017
       options:

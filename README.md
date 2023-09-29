@@ -1,39 +1,39 @@
-# Habitus: Reminders Microservice
+# Habitus: Notifications Microservice
 
 ## Description
 
-This microservice provides endpoints to save reminders of pending habits, reminders of completed habits and allows the user to be notified according to the dates set and depending on whether the reminders are active/inactive.
+This microservice provides endpoints to save notifications of pending habits, notifications of completed habits and allows the user to be notified according to the dates set and depending on whether the notifications are active/inactive.
 
 ## Endpoints
 There is a Postman collection with all of enabled and function endpoints in /docs/ folder
 
 However here is an example of endpoints and their usage
 
-### Get a reminder
+### Get a Notification
 
-Path: /reminders_controller/get_reminders
+Path: /notifications_controller/get_notifications
 Method: GET
 
 Expected result: 201 (OK)
 
-### Create a reminder
+### Create a Notification
 
-Path: /reminders_controller/add_reminder
+Path: /notifications_controller/add_notification
 Method: POST
 Body: 
 ```
 {
-    [String] rem_id: "<Reminder ID>"
-    [DateTime] rem_init_date: "<Date to get the reminder>"
-    [String] rem_description: "<Description about the reminder>"
-    [Boolean] rem_active: "<If user wants or not get the reminder>"
+    [String] not_id: "<Notification ID>"
+    [DateTime] not_init_date: "<Date to get the notification>"
+    [String] not_description: "<Description about the notification>"
+    [Boolean] not_active: "<If user wants or not get the notification>"
 }
 ```
 Expected result: 201 (OK)
 
-### Get reminder counts
+### Get Notification counts
 
-Path: /reminders_controller/get_reminders_count
+Path: /notifications_controller/get_notifications_count
 Method: GET
 
 Expected result: 201 (OK)

@@ -1,0 +1,2 @@
+module NotificationsController::NotificationsHelper
+end
