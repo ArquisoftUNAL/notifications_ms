@@ -1,0 +1,12 @@
+---
+:verbose: false
+:concurrency: 5
+:queues:
+  - default
+
+:production:
+  :concurrency: 10
+  :logfile: ./log/check_notifications.log
+  :queues:
+    - default
+
