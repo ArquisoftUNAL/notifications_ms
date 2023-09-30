@@ -1,7 +1,8 @@
 class NotificationsController::NotificationsController < ApplicationController
     ## turn off CSRF that won't render a null session
     skip_before_action :verify_authenticity_token
-    before_action :getNotification, only: [:updateNotification, :deleteNotification, :showNotification]    
+    before_action :getNotification, only: [:updateNotification, :deleteNotification, :showNotification]   
+    before_action :getNotificationsbyUser, only: [:getNotificationsUser] 
 
     ##get
     def getNotifications
@@ -20,6 +21,16 @@ class NotificationsController::NotificationsController < ApplicationController
             render json: notification, status: :ok
         else
             render json: {msg: "Notification Empty" }, status: :unprocessable_entity
+        end
+    end
+
+    
+    ##get notifications by user
+    def getNotificationsUser
+        if @notificationsUser            
+            render json: @notificationsUser, status: :ok      
+        else
+            render json: {msg:"Notifications not found"}, status: :unprocessable_entity
         end
     end
 
@@ -70,15 +81,21 @@ class NotificationsController::NotificationsController < ApplicationController
         end
     end
 
+
     ##private params
     private
 
     #enter params
     def notificationparams
-        params.permit(:not_id, :not_init_date, :not_description, :not_active);
+        params.permit(:noti_title, :noti_body, :noti_init_date, :noti_type, :noti_active, :noti_should_email, :usr_id);
     end
 
     def getNotification
-        @notification = Notification.find(params[:id])
+        @notification = Notification.find(params[:id])          
     end
+
+    def getNotificationsbyUser        
+        @notificationsUser = Notification.where(usr_id: params[:usr_id])
+    end
+
 end

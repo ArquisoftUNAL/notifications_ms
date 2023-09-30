@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "804f2c83-6c78-49da-b071-efa1dfaeb53a",
+		"name": "Notifications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26063780"
+	},
+	"item": [
+		{
+			"name": "get_notifications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:3000/notifications_controller/get_notifications"
+			},
+			"response": []
+		},
+		{
+			"name": "add_notification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "noti_title",
+							"value": "eat",
+							"type": "text"
+						},
+						{
+							"key": "noti_body",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "noti_init_date",
+							"value": "2023-10-02T18:32",
+							"type": "text"
+						},
+						{
+							"key": "noti_type",
+							"value": "reminder",
+							"type": "text"
+						},
+						{
+							"key": "noti_active",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "noti_should_email",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "usr_id",
+							"value": "54321",
+							"type": "text"
+						}
+					]
+				},
+				"url": "localhost:3000/notifications_controller/add_notification"
+			},
+			"response": []
+		},
+		{
+			"name": "show_notification",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/notifications_controller/show_notification?id=64fe5aff02b426110cea5ae9",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"notifications_controller",
+						"show_notification"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64fe5aff02b426110cea5ae9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_notification",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "651876c302b426397876e7e3",
+							"type": "text"
+						},
+						{
+							"key": "noti_title",
+							"value": "food",
+							"type": "text"
+						},
+						{
+							"key": "noti_body",
+							"value": "description",
+							"type": "text"
+						},
+						{
+							"key": "noti_init_date",
+							"value": "2023-10-02T19:26",
+							"type": "text"
+						},
+						{
+							"key": "noti_type",
+							"value": "reminder",
+							"type": "text"
+						},
+						{
+							"key": "noti_active",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "noti_should_email",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "usr_id",
+							"value": "12345",
+							"type": "text"
+						}
+					]
+				},
+				"url": "localhost:3000/notifications_controller/update_notification"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_notification",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/reminders_controller/delete_reminder?id=64fe5aff02b426110cea5ae9",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reminders_controller",
+						"delete_reminder"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64fe5aff02b426110cea5ae9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_notifications_count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:3000/notifications_controller/get_notifications_count"
+			},
+			"response": []
+		},
+		{
+			"name": "get_notifications_user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/notifications_controller/get_notifications_user?usr_id=12345",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"notifications_controller",
+						"get_notifications_user"
+					],
+					"query": [
+						{
+							"key": "usr_id",
+							"value": "12345"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

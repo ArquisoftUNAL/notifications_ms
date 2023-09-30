@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     put 'update_notification', action: :updateNotification, controller: :notifications
     delete 'delete_notification', action: :deleteNotification, controller: :notifications
     get 'get_notifications_count', action: :getNotificationsCount, controller: :notifications
+    get 'get_notifications_user', action: :getNotificationsUser, controller: :notifications
   end
 
   # Defines the root path route ("/")
