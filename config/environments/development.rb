@@ -73,13 +73,19 @@ Rails.application.configure do
 
   # Resto de la configuración de producción aquí...
 
-  # Configurar la conexión a RabbitMQ
+  # First dequeue all pending notifications
+  connection_string = "amqps://#{
+    ENV["QUEUE_USER"]
+  }:#{
+    ENV["QUEUE_PASSWORD"]
+  }@#{
+    ENV["QUEUE_URL"]
+  }/#{
+    ENV["QUEUE_VHOST"]
+  }"
+
   connection = Bunny.new(
-    # host: ENV['QUEUE_URL'],      # URL de RabbitMQ
-    # vhost: ENV['QUEUE_HOST'],  # Virtual Host
-    # port: ENV['QUEUE_PORT'],    # Puerto
-    # user: ENV['QUEUE_USER'],       # Usuario
-    # password: ENV['QUEUE_PASSWORD']  # Contraseña
+    connection_string,  
   )
 
   # Establecer la conexión
@@ -90,13 +96,40 @@ Rails.application.configure do
 
   # Acceder a la cola y consultarla (puedes añadir más operaciones aquí si es necesario)
   queue_name = ENV['QUEUE_NAME']  #nombre de tu cola
-  puts"QUEUE_NAME: '#{queue_name}'"
-  queue = channel.queue("notifications_mq")
-  message_count = queue.message_count
-  puts "Número de mensajes en la cola '#{queue_name}': #{message_count}"
+  queue = channel.queue(
+    queue_name,
+    :durable => true,
+  )
 
-  # Cierra la conexión al finalizar
-  at_exit { connection.close }
+  begin
+    queue.subscribe(manual_ack: true) do |delivery_info, properties, body|
+      
+      puts "Received message: #{body}"
+      
+      # Parse message to known structure
+      message = JSON.parse(body, object_class: NotificationMessage)
+
+      # Create a new notification
+      notification = Notification.new(
+        noti_title: message.title,
+        noti_body: message.body,
+        noti_init_date: message.init_date,
+        noti_type: "notification",
+        noti_active: true,
+        noti_should_email: message.should_email,
+        usr_id: message.user_id
+      )
+
+      # Save the notification
+      notification.save
+
+      channel.ack(delivery_info.delivery_tag)
+    end
+  rescue Interrupt => _
+    puts "Closing connection..."
+    connection.close
+    exit(0)
+  end
 
 rescue StandardError => e
   puts "Error al conectar a RabbitMQ: #{e.message}"

@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
 
+gem 'dotenv-rails', groups: [:development, :test]
+
 ##use for mongodb
 gem 'mongoid'
 
@@ -60,7 +62,7 @@ group :development, :test do
   
 
   ## to debug
-  gem 'byebug'
+  # gem 'byebug'
 end
 
 group :development do
