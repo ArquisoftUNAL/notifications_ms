@@ -87,7 +87,10 @@ class NotificationsController::NotificationsController < ApplicationController
 
     #enter params
     def notificationparams
-        params.permit(:noti_title, :noti_body, :noti_init_date, :noti_type, :noti_active, :noti_should_email, :usr_id);
+        params.permit(
+            :noti_title, :noti_body, :noti_init_date, :noti_type, 
+            :noti_active, :noti_should_email, :noti_email, :usr_id
+        );
     end
 
     def getNotification

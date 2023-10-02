@@ -91,37 +91,4 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-
-  # Configuración de RabbitMQ
-  require 'bunny'
-
-  # Resto de la configuración de producción aquí...
-
-  # Configurar la conexión a RabbitMQ
-  connection = Bunny.new(
-    host: ENV['QUEUE_URL'],      # URL de RabbitMQ
-    vhost: ENV['QUEUE_HOST'],  # Virtual Host
-    port: ENV['QUEUE_PORT'],    # Puerto
-    user: ENV['QUEUE_USER'],       # Usuario
-    password: ENV['QUEUE_PASSWORD']  # Contraseña
-  )
-
-  # Establecer la conexión
-  connection.start
-
-  # Crear un canal
-  channel = connection.create_channel
-
-  # Acceder a la cola y consultarla (puedes añadir más operaciones aquí si es necesario)
-  queue_name = ENV['QUEUE_NAME']  #nombre de tu cola
-  queue = channel.queue(queue_name)
-  message_count = queue.message_count
-  puts "Número de mensajes en la cola '#{queue_name}': #{message_count}"
-
-  # Cierra la conexión al finalizar
-  at_exit { connection.close }
-
-rescue StandardError => e
-  puts "Error al conectar a RabbitMQ: #{e.message}"
-
 end

@@ -8,6 +8,7 @@ class Notification
   field :noti_type, type: String    
   field :noti_active, type: Boolean
   field :noti_should_email, type: Boolean
+  field :noti_email, type: String
   
   field :usr_id, type: String
 
@@ -17,6 +18,7 @@ class Notification
   validates :noti_type, uniqueness: false, presence: true
   validates :noti_active, uniqueness: false, presence: true
   validates :noti_should_email, uniqueness: false, presence: true
+  validates :noti_email, uniqueness: false, presence: true
 
   validates :usr_id, uniqueness: false, presence: true
 end

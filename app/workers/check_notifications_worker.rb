@@ -1,15 +1,21 @@
+require 'json'
+
 class CheckNotificationsWorker                        
     include Sidekiq::Worker
                                           
-    def perform()
+    def perform
 
       # First dequeue all pending notifications
-      connection_string = "amqps://#{
-        ENV["QUEUE_USER"]
+      connection_string = "#{
+        ENV["QUEUE_PROTOCOL"]
+      }://#{
+      ENV["QUEUE_USER"]
       }:#{
         ENV["QUEUE_PASSWORD"]
       }@#{
         ENV["QUEUE_URL"]
+      }:#{
+        ENV["QUEUE_PORT"]
       }/#{
         ENV["QUEUE_VHOST"]
       }"
@@ -32,12 +38,14 @@ class CheckNotificationsWorker
       )
 
       begin
-        queue.subscribe(:manual_ack: true) do |delivery_info, properties, body|
+        queue.subscribe(manual_ack: true) do |delivery_info, properties, body|
           
           puts "Received message: #{body}"
           
           # Parse message to known structure
-          message = JSON.parse(body, object_class: NotificationMessage)
+          message = JSON.parse(body, object_class: OpenStruct)
+
+          puts "Message: #{message.title} - #{message.body} - #{message.init_date} - #{message.should_email} - #{message.user_id}"
 
           # Create a new notification
           notification = Notification.new(
@@ -47,6 +55,7 @@ class CheckNotificationsWorker
             noti_type: "notification",
             noti_active: true,
             noti_should_email: message.should_email,
+            noti_email: "ola",
             usr_id: message.user_id
           )
 
@@ -60,6 +69,11 @@ class CheckNotificationsWorker
         connection.close
         exit(0)
       end
+
+      connection.close
+      exit(0)
+
+      
 
       # Perform a simple check to see if the notifications are working
       puts "Checking notifications..."

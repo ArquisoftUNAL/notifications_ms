@@ -19,11 +19,25 @@ module NotificationsMs
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.before_configuration do
-      env_file = File.join(Rails.root, 'config', 'local_env.yml')
-      YAML.load(File.open(env_file)).each do |key, value|
-        ENV[key.to_s] = value
-      end if File.exist?(env_file)
-    end
+    # config.before_configuration do
+    #   env_file = File.join(Rails.root, 'config', 'local_env.yml')
+    #   YAML.load(File.open(env_file)).each do |key, value|
+    #     ENV[key.to_s] = value
+    #   end if File.exist?(env_file)
+    # end
+
+    Dotenv::Railtie.load
+
+    # Configure Mailer
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: ENV['MAILER_ADDRESS'],
+      port: ENV['MAILER_PORT'],
+      domain: ENV['MAILER_DOMAIN'],
+      user_name: ENV['MAILER_USER_NAME'],
+      password: ENV['MAILER_PASSWORD'],
+      authentication: ENV['MAILER_AUTHENTICATION'],
+      enable_starttls_auto: ENV['MAILER_ENABLE_STARTTLS_AUTO']
+    }
   end
 end

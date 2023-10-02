@@ -4,16 +4,15 @@ development:
     # Defines the default client. (required)
     default:
       # Mongoid can connect to a URI accepted by the driver:
-      # uri: mongodb://user:password@mongodb.domain.com:27017/notifications_ms_development
-
+      uri: "mongodb+srv://<%= ENV['MONGO_USERNAME'] %>:<%= ENV['MONGO_PASSWORD'] %>@<%= ENV['MONGO_HOST'] %>/<%= ENV['MONGO_DB_NAME'] %>"
       # Otherwise define the parameters separately.
       # This defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: notifications_ms
+      # database: "<%= ENV['MONGO_DB_NAME'] %>"
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
-      hosts:
-        - host.docker.internal:27017
+      #hosts:
+        #- "<%= ENV['MONGO_HOST'] %>"
       options:
         # Note that all options listed below are Ruby driver client options (the mongo gem).
         # Please refer to the driver documentation of the version of the mongo gem you are using
@@ -32,10 +31,10 @@ development:
         #     - use: web
 
         # The name of the user for authentication.
-        # user: 'user'
+        # user: "<%= ENV['MONGO_USERNAME'] %>"
 
         # The password of the user for authentication.
-        # password: 'password'
+        # password: "<%= ENV['MONGO_PASSWORD'] %>"
 
         # The user's database roles.
         # roles:
@@ -87,7 +86,7 @@ development:
         # the server may continue executing an operation after the client
         # aborts it with the SocketTimeout exception.
         # (default: nil, meaning no timeout)
-        # socket_timeout: 5
+        socket_timeout: 10
 
         # The name of the replica set to connect to. Servers provided as seeds that do
         # not belong to this replica set will be ignored.
