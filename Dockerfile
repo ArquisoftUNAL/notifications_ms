@@ -13,9 +13,9 @@ RUN bundle install
 
 ADD . /docker/app
 
-ARG DEFAULT_PORT 3000
+ARG DEFAULT_PORT 4050
 
-EXPOSE 3000
+EXPOSE 4050
 
 # Run cronjob and rails server in parallel
 RUN mkdir -p /var/log/supervisor

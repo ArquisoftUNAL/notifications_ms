@@ -29,15 +29,23 @@ module NotificationsMs
     Dotenv::Railtie.load
 
     # Configure Mailer
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      address: ENV['MAILER_ADDRESS'],
-      port: ENV['MAILER_PORT'],
-      domain: ENV['MAILER_DOMAIN'],
-      user_name: ENV['MAILER_USER_NAME'],
-      password: ENV['MAILER_PASSWORD'],
-      authentication: ENV['MAILER_AUTHENTICATION'],
-      enable_starttls_auto: ENV['MAILER_ENABLE_STARTTLS_AUTO']
-    }
+    # config.action_mailer.delivery_method = :smtp
+    # config.action_mailer.smtp_settings = {
+    #   address: ENV['MAILER_ADDRESS'],
+    #   port: ENV['MAILER_PORT'],
+    #   domain: ENV['MAILER_DOMAIN'],
+    #   user_name: ENV['MAILER_USER_NAME'],
+    #   password: ENV['MAILER_PASSWORD'],
+    #   authentication: ENV['MAILER_AUTHENTICATION'],
+    #   enable_starttls_auto: ENV['MAILER_ENABLE_STARTTLS_AUTO']
+    # }
+
+    # Configure SMTP Service
+    require 'sib-api-v3-sdk'
+
+    SibApiV3Sdk.configure do | conf | 
+      conf.api_key['api-key'] = ENV['SMTP_API_KEY']
+    end
+    
   end
 end

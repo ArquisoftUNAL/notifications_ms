@@ -5,6 +5,8 @@ ruby "3.2.2"
 
 gem 'dotenv-rails', groups: [:development, :test]
 
+gem "sib-api-v3-sdk"
+
 ##use for mongodb
 gem 'mongoid'
 
@@ -83,4 +85,5 @@ group :test do
   gem "webdrivers"
 end
 
-gem "sidekiq-cron"
+gem 'sidekiq', '< 7.0.0'
+gem "sidekiq-cron", ' < 6.2.0'
