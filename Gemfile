@@ -6,6 +6,9 @@ ruby "3.2.2"
 ##use for mongodb
 gem 'mongoid'
 
+##use for consult queue
+gem 'bunny'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.7", ">= 7.0.7.2"
 
