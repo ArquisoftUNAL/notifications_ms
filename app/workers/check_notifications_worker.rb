@@ -38,8 +38,7 @@ class CheckNotificationsWorker
       )
 
       begin
-        queue.subscribe(manual_ack: true) do |delivery_info, properties, body|
-          puts "Received #{body}"
+        queue.subscribe(manual_ack: true, block: false) do |delivery_info, properties, body|
           # Parse message to known structure
           message = JSON.parse(body, object_class: OpenStruct)
 
@@ -68,8 +67,6 @@ class CheckNotificationsWorker
       rescue Interrupt => _
         puts "Closing connection..."
       end
-
-      connection.close
       
       # Perform a simple check to see if the notifications are working
       puts "Checking notifications..."
@@ -80,7 +77,7 @@ class CheckNotificationsWorker
       puts "Time: #{current_time}" 
 
       pending_notifications = Notification.where(
-        noti_init_date: { :$gte => current_time },
+        noti_init_date: { :$lte => current_time },
         noti_active: true
       )
       pending_notifications.each do |notification|
@@ -92,6 +89,7 @@ class CheckNotificationsWorker
 
           # Send notification through email if required
           if notification.noti_should_email == true
+            puts "Sending email..."
             require 'sib-api-v3-sdk'
 
             api_instance = SibApiV3Sdk::EmailCampaignsApi.new
@@ -109,9 +107,20 @@ class CheckNotificationsWorker
                 "email" => "#{ENV["SMTP_SENDER_EMAIL"]}"
               }
             }
+
+            begin
+              result = api_instance.create_email_campaign(email_campaigns)
+              p result
+            rescue SibApiV3Sdk::ApiError => e
+              puts "Exception when calling EmailCampaignsApi->create_email_campaign: #{e}"
+            end
           end
         end
       end
+
+      # Subscriptions take a time to process
+      puts "Closing connection..."
+      connection.close
 
     end   
     
