@@ -70,6 +70,21 @@ Rails.application.configure do
 
   config.hosts << ENV["HOST"]
 
+  # Configure Mailer
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV['MAILER_ADDRESS'],
+    port: ENV['MAILER_PORT'].to_i,
+    domain: ENV['MAILER_DOMAIN'],
+    user_name: ENV['MAILER_USER_NAME'],
+    password: ENV['MAILER_PASSWORD'],
+    authentication: ENV['MAILER_AUTHENTICATION'],
+    enable_starttls_auto: ENV['MAILER_ENABLE_STARTTLS_AUTO'] == "true"
+  }
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
 rescue StandardError => e
   puts "Error al conectar a RabbitMQ: #{e.message}"
 

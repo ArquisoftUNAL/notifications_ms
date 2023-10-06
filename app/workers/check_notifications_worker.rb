@@ -89,31 +89,9 @@ class CheckNotificationsWorker
 
           # Send notification through email if required
           if notification.noti_should_email == true
-            puts "Sending email..."
-            require 'sib-api-v3-sdk'
+                   
 
-            api_instance = SibApiV3Sdk::EmailCampaignsApi.new
-
-            email_campaigns = {
-              "name" => "Habitus Notifications",
-              "subject" => notification.noti_title,
-              "type" => "classic",
-              "htmlContent" => %q(
-                "<h1>#{notification.noti_title}</h1>"
-                "<p1>#{notification.noti_body}</p1>"
-              ),
-              "sender" => {
-                "name" => "#{ENV["SMTP_SENDER_NAME"]}",
-                "email" => "#{ENV["SMTP_SENDER_EMAIL"]}"
-              }
-            }
-
-            begin
-              result = api_instance.create_email_campaign(email_campaigns)
-              p result
-            rescue SibApiV3Sdk::ApiError => e
-              puts "Exception when calling EmailCampaignsApi->create_email_campaign: #{e}"
-            end
+            
           end
         end
       end

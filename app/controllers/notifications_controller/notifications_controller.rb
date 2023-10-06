@@ -6,6 +6,9 @@ class NotificationsController::NotificationsController < ApplicationController
 
     ##get
     def getNotifications
+        ##
+        ##NotifierMailer.with(user:"dnrubiol@unal.edu.co").welcome_email.deliver
+
         notification = Notification.all        
         if notification
             render json: notification, status: :ok

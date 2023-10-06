@@ -5,7 +5,7 @@ ruby "3.2.2"
 
 gem 'dotenv-rails', groups: [:development, :test]
 
-gem "sib-api-v3-sdk"
+#gem "sib-api-v3-sdk"
 
 ##use for mongodb
 gem 'mongoid'
