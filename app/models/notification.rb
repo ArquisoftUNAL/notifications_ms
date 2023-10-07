@@ -11,6 +11,8 @@ class Notification
   field :noti_email, type: String
   
   field :usr_id, type: String
+  field :page, type: Integer
+  field :items_by_page, type: Integer
 
   validates :noti_title, uniqueness: false, presence: true
   validates :noti_body, uniqueness: false, presence: false
@@ -21,4 +23,6 @@ class Notification
   validates :noti_email, uniqueness: false, presence: true
 
   validates :usr_id, uniqueness: false, presence: true
+  validates :page, uniqueness: false, presence: false
+  validates :items_by_page, uniqueness: false, presence: false
 end

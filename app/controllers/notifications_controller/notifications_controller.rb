@@ -29,8 +29,22 @@ class NotificationsController::NotificationsController < ApplicationController
 
     
     ##get notifications by user
+    # def getNotificationsUser
+    #     if @notificationsUser            
+    #         render json: @notificationsUser, status: :ok      
+    #     else
+    #         render json: {msg:"Notifications not found"}, status: :unprocessable_entity
+    #     end
+    # end
+
     def getNotificationsUser
-        if @notificationsUser            
+
+        page = params[:page].to_i || 1
+        items_by_page = params[:items_by_page].to_i || 10
+        offset = (page - 1) * items_by_page
+
+        if @notificationsUser
+            @notificationsUser = Notification.order(noti_init_date: :desc).offset(offset).limit(items_by_page).where(usr_id: params[:usr_id])     #asc      
             render json: @notificationsUser, status: :ok      
         else
             render json: {msg:"Notifications not found"}, status: :unprocessable_entity
@@ -93,7 +107,8 @@ class NotificationsController::NotificationsController < ApplicationController
     def notificationparams
         params.permit(
             :noti_title, :noti_body, :noti_init_date, :noti_type, 
-            :noti_active, :noti_should_email, :noti_email, :usr_id
+            :noti_active, :noti_should_email, :noti_email, :usr_id,
+            :page, :items_by_page
         );
     end
 
@@ -102,7 +117,7 @@ class NotificationsController::NotificationsController < ApplicationController
     end
 
     def getNotificationsbyUser        
-        @notificationsUser = Notification.where(usr_id: params[:usr_id])
+        @notificationsUser = Notification.where(usr_id: params[:usr_id], page: params[:page], items_by_page: params[:items_by_page])
     end
 
 end
