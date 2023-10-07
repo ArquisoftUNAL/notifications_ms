@@ -59,7 +59,7 @@ class NotificationsController::NotificationsController < ApplicationController
     end
 
     ##put
-    def updateNotification
+    def updateNotification    
         if @notification
             if @notification.update(notificationparams)
                 render json: @notification, status: :ok
@@ -68,7 +68,8 @@ class NotificationsController::NotificationsController < ApplicationController
             end
         else
             render json: {msg:"Notification not found"}, status: :unprocessable_entity
-        end
+        end  
+        
     end
 
     ##delete
@@ -97,7 +98,7 @@ class NotificationsController::NotificationsController < ApplicationController
     end
 
     def getNotification
-        @notification = Notification.find(params[:id])          
+        @notification = Notification.find_by(id: params[:id], usr_id: params[:usr_id])     
     end
 
     def getNotificationsbyUser        
