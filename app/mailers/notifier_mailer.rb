@@ -3,7 +3,9 @@ class NotifierMailer < ApplicationMailer
 
     def welcome_email
         @user = params[:user]
-        @url  = 'http://example.com/login'
-        mail(to: @user, subject: 'Welcome to My Awesome Site')
+        @noti_title = params[:noti_title]
+        @noti_body = params[:noti_body]
+        #@url  = 'http://example.com/login'
+        mail(to: @user, subject: 'Nueva Notificación!')
     end
 end

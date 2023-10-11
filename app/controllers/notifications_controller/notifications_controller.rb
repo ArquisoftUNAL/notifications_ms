@@ -6,8 +6,7 @@ class NotificationsController::NotificationsController < ApplicationController
 
     ##get
     def getNotifications
-        ##
-        ##NotifierMailer.with(user:"dnrubiol@unal.edu.co").welcome_email.deliver
+        ##      
 
         notification = Notification.all        
         if notification
@@ -62,6 +61,9 @@ class NotificationsController::NotificationsController < ApplicationController
 
     ##post
     def addNotification
+
+    
+
         notification = Notification.new(notificationparams)
 
         if notification.save()
@@ -75,6 +77,12 @@ class NotificationsController::NotificationsController < ApplicationController
     ##put
     def updateNotification    
         if @notification
+
+            noti_params = notificationparams
+            noti_title = noti_params[:noti_title]
+            noti_body = noti_params[:noti_body]
+            NotifierMailer.with(noti_title: noti_title, noti_body: noti_body, user:"begob39286@cindalle.com").welcome_email.deliver
+
             if @notification.update(notificationparams)
                 render json: @notification, status: :ok
             else

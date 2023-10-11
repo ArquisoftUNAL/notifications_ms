@@ -81,7 +81,7 @@ class CheckNotificationsWorker
         noti_active: true
       )
       pending_notifications.each do |notification|
-        #puts "Notification: #{notification.noti_title} - #{notification.noti_init_date}"
+        puts "Notification: #{notification.noti_title} - #{notification.noti_init_date}"
         
         if notification.noti_init_date <= current_time && notification.noti_active == true
           puts "Notification: #{notification.noti_title} - #{notification.noti_init_date}"
