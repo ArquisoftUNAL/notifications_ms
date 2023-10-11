@@ -77,11 +77,11 @@ class NotificationsController::NotificationsController < ApplicationController
     ##put
     def updateNotification    
         if @notification
-
-            noti_params = notificationparams
-            noti_title = noti_params[:noti_title]
-            noti_body = noti_params[:noti_body]
-            NotifierMailer.with(noti_title: noti_title, noti_body: noti_body, user:"begob39286@cindalle.com").welcome_email.deliver
+            
+            # noti_params = notificationparams
+            # noti_title = noti_params[:noti_title]
+            # noti_body = noti_params[:noti_body]
+            # NotifierMailer.with(noti_title: noti_title, noti_body: noti_body, user:"begob39286@cindalle.com").welcome_email.deliver
 
             if @notification.update(notificationparams)
                 render json: @notification, status: :ok

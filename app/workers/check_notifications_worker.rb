@@ -54,6 +54,9 @@ class CheckNotificationsWorker
             usr_id: message.user_id
           )
 
+          ##
+
+
           # Save the notification
           if notification.save()
             puts "Notification saved"
@@ -84,15 +87,16 @@ class CheckNotificationsWorker
         puts "Notification: #{notification.noti_title} - #{notification.noti_init_date}"
         
         if notification.noti_init_date <= current_time && notification.noti_active == true
-          puts "Notification: #{notification.noti_title} - #{notification.noti_init_date}"
+          puts "Updating..."
+
+          #update notification
           notification.update(noti_active: false)
-
-          # Send notification through email if required
-          if notification.noti_should_email == true
-                   
-
-            
-          end
+          #send update email
+          noti_title = notification.noti_title
+          noti_body = notification.noti_body
+          noti_email = notification.noti_email
+          NotifierMailer.with(noti_title: noti_title, noti_body: noti_body, user: noti_email).welcome_email.deliver
+          puts "Update Email Sent"
         end
       end
 

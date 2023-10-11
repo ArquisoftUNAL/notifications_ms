@@ -6,6 +6,6 @@ class NotifierMailer < ApplicationMailer
         @noti_title = params[:noti_title]
         @noti_body = params[:noti_body]
         #@url  = 'http://example.com/login'
-        mail(to: @user, subject: 'Nueva Notificación!')
+        mail(to: @user, subject: 'New Notification!')
     end
 end
